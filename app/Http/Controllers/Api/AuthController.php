@@ -34,7 +34,9 @@ class AuthController extends Controller
 
 
         if( !auth()->attempt($validatedPayload)) {
-            return response(['message'=> 'Invalid credentials']);
+            return response([
+                'message'=> 'You have entered your password or email incorrectly. Please check your password and  account email and try again.',
+                'errors' => ['main' => true]], 422);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
