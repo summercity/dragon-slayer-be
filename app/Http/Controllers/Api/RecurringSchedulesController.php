@@ -41,8 +41,9 @@ class RecurringSchedulesController extends Controller
             'repeated_json'=>'required',
             'start_date'=>'required',
             'stop_date'=>'required',
-            'created_by'=>'required',
         ]);
+
+        // $validatedPayload['created_by'] = $request->user()->id;
 
         $RecurringSchedules = RecurringSchedules::create($validatedPayload);
 
@@ -76,7 +77,6 @@ class RecurringSchedulesController extends Controller
             'repeated_json'=>'required',
             'start_date'=>'required',
             'stop_date'=>'required',
-            'created_by'=>'required',
         ]);
 
 		$RecurringSchedules->update($validatedPayload);

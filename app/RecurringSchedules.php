@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class RecurringSchedules extends Model
 {
@@ -20,7 +21,7 @@ class RecurringSchedules extends Model
         'repeated_json',
         'start_date',
         'stop_date',
-        'created_by',     
+        'created_by',
     ]; 
 
     protected static function boot()
@@ -29,6 +30,11 @@ class RecurringSchedules extends Model
 
         static::creating(function ($RecurringSchedules) {
             $RecurringSchedules->{$RecurringSchedules->getKeyName()} = (string) Str::uuid();
+            $RecurringSchedules->created_by = Auth::user()->id;
+        });
+
+        static::updating(function ($RecurringSchedules) {
+            $RecurringSchedules->updated_by = Auth::user()->id;
         });
     }
 }
