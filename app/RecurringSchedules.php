@@ -22,6 +22,7 @@ class RecurringSchedules extends Model
         'start_date',
         'stop_date',
         'created_by',
+        'updated_by',
     ]; 
 
     protected static function boot()
