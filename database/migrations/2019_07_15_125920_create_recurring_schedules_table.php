@@ -23,7 +23,7 @@ class CreateRecurringSchedulesTable extends Migration
             $table->string('terminal', 2);
             $table->string('ground_time', 10);
             $table->string('departure', 10);
-            $table->string('repeated', 50);
+            $table->string('repeated', 100);
             $table->string('repeated_json', 200);
             $table->date('start_date');
             $table->date('stop_date');
