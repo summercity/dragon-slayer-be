@@ -12,7 +12,7 @@ class RecurringSchedulesController extends Controller
     public function index()
     {
         // Get Recurring Schedules
-        $RecurringSchedules = RecurringSchedules::paginate(10);
+        $RecurringSchedules = RecurringSchedules::orderBy('updated_at', 'desc')->paginate(10);
 
         // Return collection of Recurring Schedules as a resource
         return RecurringSchedulesResource::collection($RecurringSchedules);
