@@ -29,7 +29,7 @@ class CreateRecurringSchedulesTable extends Migration
             $table->date('stop_date');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');  
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->default(0)->references('id')->on('users')->onDelete('cascade');
         });
     }
 
