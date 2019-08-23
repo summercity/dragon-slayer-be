@@ -29,9 +29,13 @@ Route::post('/register', 'Api\AuthController@register');
 Route::post('/login', 'Api\AuthController@login');
 Route::middleware('auth:api')->post('/logout', 'Api\AuthController@logout');
 
-// Schedules
+// Recurring Schedules
 Route::middleware('auth:api')->get('/recurring-schedules', 'Api\RecurringSchedulesController@index');
 Route::middleware('auth:api')->get('/recurring-schedules/{id}', 'Api\RecurringSchedulesController@show');
 Route::middleware('auth:api')->post('/recurring-schedules', 'Api\RecurringSchedulesController@store');
 Route::middleware('auth:api')->put('/recurring-schedules/{id}', 'Api\RecurringSchedulesController@update');
 Route::middleware('auth:api')->delete('/recurring-schedules/{id}', 'Api\RecurringSchedulesController@destroy');
+
+// Scheduled
+Route::middleware('auth:api')->get('/schedules', 'Api\SchedulesController@generate');
+Route::middleware('auth:api')->put('/schedules/status/{id}', 'Api\SchedulesController@updateStatus');

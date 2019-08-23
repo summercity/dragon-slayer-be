@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecurringSchedulesTable extends Migration
+class CreateSchedules extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRecurringSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recurring_schedules', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
 
@@ -25,10 +25,13 @@ class CreateRecurringSchedulesTable extends Migration
             $table->string('departure', 10);
             $table->string('repeated', 100);
             $table->string('repeated_json', 200);
+            $table->date('scheduled_date');
             $table->date('start_date');
             $table->date('stop_date');
+            $table->string('status',50);
+            $table->boolean('recurring');
             $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');  
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade'); 
             $table->unsignedBigInteger('updated_by');
             $table->foreign('updated_by')->default(0)->references('id')->on('users')->onDelete('cascade');
         });
@@ -41,6 +44,6 @@ class CreateRecurringSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recurring_schedules');
+        Schema::dropIfExists('schedules');
     }
 }
