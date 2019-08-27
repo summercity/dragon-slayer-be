@@ -39,3 +39,5 @@ Route::middleware('auth:api')->delete('/recurring-schedules/{id}', 'Api\Recurrin
 // Scheduled
 Route::middleware('auth:api')->get('/schedules', 'Api\SchedulesController@generate');
 Route::middleware('auth:api')->put('/schedules/status/{id}', 'Api\SchedulesController@updateStatus');
+Route::middleware('auth:api')->get('/schedules/generated-dates/today', 'Api\SchedulesController@generatedDate');
+Route::middleware('auth:api')->get('/schedules/generated/today', 'Api\SchedulesController@generatedSchedules');

@@ -48,5 +48,29 @@ class SchedulesController extends Controller
  
         return new SchedulesResource($Schedules);
  
-    }
+	}
+	
+	 /**
+	 * Get-Action
+	 *
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function generatedDate()
+	{
+        $data = DB::select('call sp_get_generated_date_for_today()');
+        return response()->json($data);
+	}
+
+	/**
+	 * Get-Action
+	 *
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function generatedSchedules()
+	{
+        $data = DB::select('call sp_get_generated_schedules_for_today()');
+        return response()->json($data);
+	}
 }
