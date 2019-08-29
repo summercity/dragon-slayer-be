@@ -36,6 +36,15 @@ Route::middleware('auth:api')->post('/recurring-schedules', 'Api\RecurringSchedu
 Route::middleware('auth:api')->put('/recurring-schedules/{id}', 'Api\RecurringSchedulesController@update');
 Route::middleware('auth:api')->delete('/recurring-schedules/{id}', 'Api\RecurringSchedulesController@destroy');
 
+
+// Non Recurring Schedules
+Route::middleware('auth:api')->get('/non-recurring-schedules', 'Api\NonRecurringSchedulesController@index');
+Route::middleware('auth:api')->get('/non-recurring-schedules/{id}', 'Api\NonRecurringSchedulesController@show');
+Route::middleware('auth:api')->post('/non-recurring-schedules', 'Api\NonRecurringSchedulesController@store');
+Route::middleware('auth:api')->put('/non-recurring-schedules/{id}', 'Api\NonRecurringSchedulesController@update');
+Route::middleware('auth:api')->delete('/non-recurring-schedules/{id}', 'Api\NonRecurringSchedulesController@destroy');
+
+
 // Scheduled
 Route::middleware('auth:api')->get('/schedules', 'Api\SchedulesController@generate');
 Route::middleware('auth:api')->put('/schedules/status/{id}', 'Api\SchedulesController@updateStatus');

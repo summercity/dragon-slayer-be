@@ -43,7 +43,7 @@ class RecurringSchedulesController extends Controller
             'stop_date'=>'required',
         ]);
 
-        // $validatedPayload['created_by'] = $request->user()->id;
+        $validatedPayload['updated_by'] = $request->user()->id;
 
         $RecurringSchedules = RecurringSchedules::create($validatedPayload);
 

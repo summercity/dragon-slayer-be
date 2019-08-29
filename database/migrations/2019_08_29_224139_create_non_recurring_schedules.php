@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecurringSchedulesTable extends Migration
+class CreateNonRecurringSchedules extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateRecurringSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recurring_schedules', function (Blueprint $table) {
+        Schema::create('non_recurring_schedules', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
 
             $table->string('flight_number',12); 
-            $table->string('destination',50);
             $table->string('equipment', 6);
             $table->string('terminal', 2);
             $table->string('ground_time', 10);
             $table->string('departure', 10);
-            $table->string('repeated', 100);
-            $table->string('repeated_json', 200);
+            $table->string('customer_name', 50);
+            $table->string('company_name', 50);
             $table->date('start_date');
             $table->date('stop_date');
             $table->unsignedBigInteger('created_by');
@@ -41,6 +40,6 @@ class CreateRecurringSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recurring_schedules');
+        Schema::dropIfExists('non_recurring_schedules');
     }
 }
