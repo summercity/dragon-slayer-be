@@ -29,7 +29,6 @@ class NonRecurringSchedulesController extends Controller
     public function store(Request $request)
     {
         $validatedPayload = $request->validate([
-            'flight_number'=>'required|max:10',
             'equipment'=>'required|max:6',
             'terminal' =>'required',
             'ground_time'=>'required',
@@ -64,7 +63,6 @@ class NonRecurringSchedulesController extends Controller
         
 
         $validatedPayload = $request->validate([
-            'flight_number'=>'required|max:10',
             'equipment'=>'required|max:6',
             'terminal' =>'required',
             'ground_time'=>'required',
