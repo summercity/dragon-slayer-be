@@ -19,6 +19,8 @@ class CreateSchedules extends Migration
 
             $table->string('flight_number',12); 
             $table->string('destination',50);
+            $table->string('customer_name',50);
+            $table->string('company_name',50);
             $table->string('equipment', 6);
             $table->string('terminal', 2);
             $table->string('ground_time', 10);

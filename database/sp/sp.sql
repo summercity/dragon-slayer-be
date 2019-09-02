@@ -2,6 +2,16 @@ DROP PROCEDURE IF EXISTS `sp_generate_schedule`;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_generate_schedule`(IN userId BIGINT(20))
 BEGIN
 		
+    DECLARE errno INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+    SELECT errno AS MYSQL_ERROR;
+    ROLLBACK;
+    END;
+
+    START TRANSACTION;
+    
 	IF (SELECT COUNT(id) FROM generated_dates WHERE scheduled_date = CURDATE() ) THEN
 		BEGIN
 		    SELECT * FROM schedules WHERE scheduled_date = CURDATE();
@@ -20,6 +30,8 @@ BEGIN
 		    INSERT INTO schedules (
 			flight_number, 
 			destination,
+			customer_name,
+			company_name,
 		        equipment,
 			terminal,
 			ground_time,
@@ -39,6 +51,8 @@ BEGIN
 		    	SELECT 
 			       a.flight_number,
 			       a.destination,
+			       'NA' customer_name,
+			       'NA' company_name,
 			       a.equipment,
 			       a.terminal,
 			       a.ground_time,
@@ -55,12 +69,36 @@ BEGIN
 			       CURDATE(),
 			       CURDATE()
 				FROM recurring_schedules a
-					WHERE FIND_IN_SET(DAYNAME(NOW()), a.repeated);
+					WHERE FIND_IN_SET(DAYNAME(NOW()), a.repeated) AND (CURDATE() BETWEEN a.start_date AND a.stop_date)
+			UNION
+		    	SELECT 
+			       a.flight_number,
+			       'NA' destination,
+			       a.customer_name,
+			       a.company_name,
+			       a.equipment,
+			       a.terminal,
+			       a.ground_time,
+			       a.departure,
+			       'NA' repeated,
+			       'NA' repeated_json,
+			       CURDATE() scheduled_date,
+			       a.start_date,
+			       a.stop_date,
+			       'Pending' `status`,
+			       FALSE recurring,
+			       userId created_by,
+			       userId updated_by,
+			       CURDATE(),
+			       CURDATE()
+				FROM non_recurring_schedules a
+					WHERE a.start_date = CURDATE();
 		    
-		    SELECT * FROM schedules WHERE scheduled_date = CURDATE();
+			SELECT * FROM schedules WHERE scheduled_date = CURDATE();
 		END;
 	END IF;
-    END;
+    COMMIT WORK;
+END;
 
 
 
