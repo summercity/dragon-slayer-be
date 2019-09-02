@@ -14,7 +14,9 @@ BEGIN
     
 	IF (SELECT COUNT(id) FROM generated_dates WHERE scheduled_date = CURDATE() ) THEN
 		BEGIN
-		    SELECT * FROM schedules WHERE scheduled_date = CURDATE();
+		    SELECT * FROM schedules 
+				WHERE scheduled_date = CURDATE()
+					ORDER BY departure ASC, terminal ASC;
 		END;
 		ELSE
 		BEGIN
@@ -94,7 +96,9 @@ BEGIN
 				FROM non_recurring_schedules a
 					WHERE a.start_date = CURDATE();
 		    
-			SELECT * FROM schedules WHERE scheduled_date = CURDATE();
+			SELECT * FROM schedules 
+				WHERE scheduled_date = CURDATE()
+					ORDER BY departure ASC, terminal ASC;
 		END;
 	END IF;
     COMMIT WORK;
@@ -118,5 +122,6 @@ DROP PROCEDURE IF EXISTS `sp_get_generated_schedules_for_today`;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_generated_schedules_for_today`()
 BEGIN
 	SELECT * FROM schedules
-		WHERE scheduled_date = CURDATE();
+		WHERE scheduled_date = CURDATE()
+		 ORDER BY departure ASC, terminal ASC;
 END;
