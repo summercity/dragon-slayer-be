@@ -28,6 +28,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', 'Api\AuthController@register');
 Route::post('/login', 'Api\AuthController@login');
 Route::middleware('auth:api')->post('/logout', 'Api\AuthController@logout');
+Route::middleware('auth:api')->get('/users', 'Api\AuthController@index');
+Route::middleware('auth:api')->put('/users/{id}', 'Api\AuthController@update');
+Route::middleware('auth:api')->put('/users/status/{id}', 'Api\AuthController@updateStatus');
+Route::middleware('auth:api')->get('/users/{id}', 'Api\AuthController@show');
 
 // Recurring Schedules
 Route::middleware('auth:api')->get('/recurring-schedules', 'Api\RecurringSchedulesController@index');

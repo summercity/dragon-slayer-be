@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RecurringSchedules extends JsonResource
+class Users extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,17 +17,13 @@ class RecurringSchedules extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'flight_number'=> $this->flight_number,
-            'destination'=> $this->destination,
-            'equipment'=> $this->equipment,
-            'terminal' =>  $this->terminal,
-            'ground_time'=>  $this->ground_time,
-            'departure'=>  $this->departure,
-            'repeated'=>  $this->repeated,
-            'repeated_json'=>  $this->repeated_json,
-            'start_date'=>  $this->start_date,
-            'stop_date'=>  $this->stop_date,
-            'created_by'=>  $this->created_by,
+            'name'=> $this->name,
+            'email'=> $this->email,
+            'computer_number'=> $this->computer_number,
+            'password'=> $this->password,
+            'status_description' =>  $this->status_description,
+            'online'=>  $this->online,
+            'active'=>  $this->active,
         ];
     }
 
