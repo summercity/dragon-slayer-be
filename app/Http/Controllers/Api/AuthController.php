@@ -33,16 +33,11 @@ class AuthController extends Controller
         $validatedPayload = $request->validate([
             'name'=>'required|max:50',
             'email'=>'email|required|unique:users',
-            'computer_number'=>'required',
             'password'=>'required|confirmed',
-            'status_description'=>'required|max:100',
-            'online'=>'required',
-            'active'=>'required',
             
         ]);
 
         $validatedPayload['password'] =  bcrypt($request->password);
-        $validatedPayload['active'] =  (int)($request->active === 'true');
         $user = User::create($validatedPayload);
 
         $accessToken = $user->createToken('authToken')->accessToken;
@@ -73,28 +68,13 @@ class AuthController extends Controller
         ]);
 
         $validatedPayload['active'] =  (int)($request->active === 'true');
+
         // Check if the user updated his/her password
         if ($User["password"] === $request["password"]) {
             $validatedPayload['password'] = $User["password"];
         } else {
             $validatedPayload['password'] =  bcrypt($request->password);
         }
-        
-		$User->update($validatedPayload);
- 
-        return new UsersResource($User);
- 
-    }
-
-
-    public function updateStatus(Request $request, $id)
-	{
-       
-        $User = User::findOrFail($id);
-
-        $validatedPayload = $request->validate([
-            'status_description'=>'required|max:100',
-        ]);
         
 		$User->update($validatedPayload);
  
